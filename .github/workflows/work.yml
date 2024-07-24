@@ -1,0 +1,23 @@
+name: work
+on: push
+jobs:
+  bulid:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        uses: npm install
+
+      - name: setup
+        uses: make setup
+
+      - name: start
+        uses: make start
+
+      - name: Run tests
+        uses: make test
+
+      - name: Run linters
+        uses: make lint
