@@ -1,23 +1,31 @@
-name: work
-on: push
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
 jobs:
-  bulid:
+  build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '14' # Укажите версию Node.js, которую используете
+
       - name: Install dependencies
-        uses: npm install
-
-      - name: setup
-        uses: make setup
-
-      - name: start
-        uses: make start
-
-      - name: Run tests
-        uses: make test
+        run: npm install
 
       - name: Run linters
-        uses: make lint
+        run: npm run lint # Команда для запуска линтера, если у вас она другая, замените
+
+      - name: Run tests
+        run: npm test # Команда для запуска тестов, если у вас она другая, замените
